@@ -1,0 +1,27 @@
+{
+  "name": "PillPal",
+  "version": "0.0.0",
+  "homepage": "https://github.com/laanuk/Pillpal",
+  "authors": [
+    "Kurt Carpenter",
+    "Sam Marder",
+    "Kunaal Naik"
+  ],
+  "license": "All Rights Reserved",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "allmighty-autocomplete": "*",
+    "angucomplete-alt": "~1.1.0",
+    "angular-bootstrap": "~0.13.0",
+    "angular-libphonenumber": "~0.0.5",
+    "angular-resource": "~1.4.5",
+    "angular-route": "~1.4.5",
+    "bootstrap": "~3.3.4"
+  }
+}

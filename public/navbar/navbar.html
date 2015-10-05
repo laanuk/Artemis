@@ -1,0 +1,45 @@
+<nav class="top-nav valign-wrapper blue-grey darken-4">
+  <a class="navbar-brand valign" href="/app#!/" style="margin-left:16px">
+    <h4><img src="img/short_logo.png" width="100px"></h4>
+  </a>
+  <div class="container head-container">
+    <div class="nav-wrapper">
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="material-icons prefix">search</i>
+          <angucomplete-alt id="members"
+                        placeholder="Search Patients"
+                        pause="400"
+                        selected-object="selectPatient"
+                        minlength="5"
+                        local-data="patients"
+                        input-changed="updateSearch"
+                        search-fields="name,phone"
+                        title-field="name"
+                        description-field="phone"
+                        input-class="form-control form-control-small"/>
+        </div>
+        <form name="addPatientForm" class="add-patient-form">
+          <div class="input-field col m3 l3 offset-l2">
+            <i class="material-icons prefix">account_circle</i>
+            <input ng-model="newPatient.name" type="text" placeholder="Patient Name" ng-required>
+          </div>
+          <div class="input-field col m3 l3">
+            <i class="material-icons prefix">phone</i>
+            <input ng-model="newPatient.phone" type="text" placeholder="Patient Phone" phone-number ng-required>
+          </div>
+        </form>
+        <div class="input-field col s1">
+          <a title="Add Patient" href="#" ng-click="addPatient()">
+            <i class="material-icons" style="margin-left:25%">add</i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="input-field right white-text">
+    <ul>
+      <li><a href="/change-password">My Account</a></li>
+      <li title="Logout"><a href="/api/logout" style="margin-top: 4px;"><i class="material-icons">exit_to_app</i></a></li>
+    </ul>
+  </div>
+</nav>

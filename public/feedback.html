@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/landing.css">
+
+  <title>Memora Health</title>
+</head>
+<body>
+<div class="form">
+  <div class="tab-content">
+    <div id="login" style="display:inherit">
+      <h1>Submit Feedback</h1>
+      <form action="/api/submit-feedback" method="post" class="login-form">
+        <div class="field-wrap">
+          <label>
+            Feedback Type
+          </label> <br /> <br />
+          <input type="radio" name="type" value="feature_request" id="feature"required>
+              <label for="feature_request" class="real-label">Feature Request</label> <br />
+          <input type="radio" name="type" value="bug" id="bug">
+              <label for="bug" class="real-label">Bug Report</label> <br />
+          <input type="radio" name="type" value="good_work" id="good">
+              <label for="good_work" class="real-label">Good Work!</label> <br />
+        </div>
+        <div class="field-wrap">
+          <textarea name="message" cols="10" placeholder="Message" required></textarea>
+        </div>
+        <div class="field-wrap">
+          <label>
+            May we follow up with you via email?
+          </label> <br /> <br />
+          <input type="radio" name="contact" value="true" id="true" checked required>
+              <label for="true" class="real-label">Yes</label> <br />
+          <input type="radio" name="contact" value="false" id="false">
+              <label for="false" class="real-label">No</label>
+        </div>
+        <button class="button button-block btn-login" onclick=""/>Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<style>
+  html {
+    color:white;
+  }
+  h1 {
+    font-weight: 600;
+    font-size:36px !important;
+  }
+  input {
+    width:auto;
+    display:inline;
+    margin-left:42px;
+    margin-top:8px;
+  }
+
+  label {
+    color:white;
+    position: inherit;
+    padding-bottom:8px;
+  }
+
+  .real-label {
+    color:lightgray;
+    pointer-events: auto;
+    font-size:16px;
+  }
+
+  ::-webkit-input-placeholder {
+    font-family:"Lato",sans-serif
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    font-family:"Lato",sans-serif
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+    font-family:"Lato",sans-serif
+  }
+
+  :-ms-input-placeholder {
+    font-family:"Lato",sans-serif
+  }
+</style>
+<script>
+ function validate() {
+   var val1 = document.getElementById("newpw1").value;
+   var val2 = document.getElementById("newpw2").value;
+   document.getElementById("nomatchmessage").style.display = (val1 === val2 || !val2) ? "none" : "inherit";
+   return val1 === val2;
+ }
+</script>
+
+<script>
+  $('.form').find('input, textarea').on('change input keyup blur focus', function(e) {
+
+  var label = $(this).prev('label');
+  if (e.type === 'input') {
+    if ($(this).val() === '') {
+      label.removeClass('active highlight');
+    } else {
+      label.addClass('active');
+    }
+  } else if (e.type === 'keyup') {
+    if ($(this).val() === '') {
+      label.removeClass('active highlight');
+    } else {
+      label.addClass('active highlight');
+    }
+  } else if (e.type === 'blur') {
+    if ($(this).val() === '') {
+      label.removeClass('active highlight');
+    } else {
+      label.removeClass('highlight');
+    }
+  } else if (e.type === 'focus') {
+    if ($(this).val() === '') {
+      label.removeClass('highlight');
+    } else if ($(this).val() !== '') {
+      label.addClass('highlight');
+    }
+  }
+
+});
+
+  $('.tab a').on('click', function(e) {
+    e.preventDefault();
+    $(this).parent().addClass('active');
+    $(this).parent().siblings().removeClass('active');
+    var target = $(this).attr('href');
+    $('.tab-content > div').not(target).hide();
+    $(target).fadeIn(600);
+  });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64575508-1', 'auto');
+  ga('send', 'pageview');
+  //ga(‘set’, ‘&uid’, {{USER_ID}}); // Set the user ID using signed-in user_id.
+</script>
+
+</body>
+</html>

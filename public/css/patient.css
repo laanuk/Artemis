@@ -1,0 +1,377 @@
+/* Materialize CSS! Yay! */
+.date-picker-div td {
+  padding: 2px !important;
+}
+
+/* End Yay */
+.patient-name {
+
+}
+
+.adherance-percentage-div {
+  background-color: lightgray;
+  height: 376px;
+  line-height: 376px;
+  margin-top: 12px;
+  border-left: #808080 solid 12px;
+  border-right: #808080 solid 6px;
+  text-align: center;
+}
+.adherance-percentage {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 42px;
+  font-weight: 600;
+}
+.adherance-percentage:after {
+  content: "\A Adherance Percentage";
+  white-space: pre;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: oblique;
+  color:#777;
+}
+.adherance-low {
+  color: red;
+}
+.adherance-medium {
+  color: yellow;
+}
+.adherance-high {
+  color: green;
+}
+
+.graph-div {
+  background-color:lightgray;
+  height:376px;
+  margin-top:12px;
+  border-right: #808080 solid 12px;
+  border-left: #808080 solid 6px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left:0;
+}
+.drugs-container {
+  background-color: #8F93F0;
+  min-height:391px;
+}
+.patientpage-drug {
+  color:white;
+  display:inline;
+  height:115px;
+  border: 2px #3A539B solid;
+  box-sizing: border-box;
+  text-align:center;
+  padding-bottom:25%;
+  line-height:115px;
+  cursor: pointer;
+  user-select:none;
+  -moz-user-select:none;
+}
+.patientpage-drug:nth-child(3n) {
+  background-color:rgba(0,0,0,0.04);
+}
+.patientpage-drug:nth-child(3n+1) {
+  background-color:rgba(0,0,0,0.06);
+}
+.patientpage-drug:nth-child(3n+2) {
+  background-color:rgba(0,0,0,0.08);
+}
+.patientpage-drug > span {
+  display:block;
+  text-align:center;
+  word-wrap:break-word;
+  line-height:2em;
+}
+
+.archived-drugs > li {
+  cursor:default;
+}
+
+.patientpage-graph-resizer {
+  font-size:24px;
+  cursor:pointer;
+}
+.drugs-container {
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+.drug-removal-button {
+  font-size:24px;
+  color:rgba(255,255,255,0.6);
+  -webkit-transition: color 1s; /* Safari */
+  transition: color 1s;
+  position:absolute;
+  right: 12px;
+}
+
+.drug-removal-button:hover {
+  color:red;
+}
+
+.patientpage-drug > .drug-name {
+  display:inline-block;
+  font-size:2.5em;
+  line-height:1em;
+  font-weight:800;
+  vertical-align: middle;
+}
+.patientpage-drug > .drug-dosage {
+  font-style:oblique;
+  color:lightgray;
+  margin-top:-30px;
+  font-size: 16px;
+}
+.patientpage-drug > div {
+  vertical-align: bottom;
+  line-height: 1.2em;
+  font-size:16px;
+}
+.patientpage-drug > div > .drug-startdate {
+  /*float:left;*/
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: white;
+}
+.patientpage-drug > div > .drug-enddate {
+  /*float:right;*/
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  color: white;
+}
+
+.medication-toggler {
+  /*background-color: lightgray;*/
+  width:350px;
+  color:white;
+  font-size:16px;
+}
+
+.medication-toggler-inner {
+  padding:12px;
+}
+
+.medication-toggler-inner > a {
+  border-radius: 0px;
+}
+
+/*Adding a drug*/
+.add-drug-box {
+  /*background-color:rgba(27,188,155,0.5);*/
+  background-color:rgba(255,255,255,0.08) !important;
+}
+.add-drug-box > div {
+  line-height: 2.5em;
+}
+
+.content {
+  position:absolute;
+  height:80%; /* = 100% - 2*10% padding */
+  width:90%; /* = 100% - 2*5% padding */
+  padding: 10% 5%;
+  line-height:4em;
+}
+.table{
+  display:table;
+  height:100%;
+  width:100%;
+}
+.table-cell{
+  display:table-cell;
+  vertical-align:middle;
+  height:100%;
+  width:100%;
+  font-size:24px;
+}
+.glyphicon-plus {
+  font-size:32px;
+}
+
+/*Popup*/
+
+.popup-div {
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /*display: none;*/
+  position: absolute;
+  background-color: rgba(55,55,55,0.55);
+  color: #white;
+  position:fixed;
+}
+.popup-content {
+  width:440px;
+  height:79%;
+  overflow-y:scroll;
+  /*position: absolute;*/
+  color: #000000;
+  background-color: rgba(255,255,255,0.9);
+  /* To align popup window at the center of screen*/
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+.popup-content-remover {
+  height:auto;
+  overflow: inherit;
+}
+
+.newdrug-form > label {
+  margin-left:12.5%;
+  margin-top:8px;
+}
+
+.newdrug-form > input {
+  display:block;
+  width:75%;
+  margin-left:12.5%;
+}
+
+.newdrug-form-buttons {
+  margin-top:16px;
+  margin-left:12.5;
+}
+
+.newdrug-form-buttons > a {
+  float:left;
+  margin-left:96px;
+}
+
+.newdrug-form-buttons > button {
+  float:right;
+  margin-right:96px;
+  border-radius: 0px;
+}
+
+.popup-title {
+  padding-top:12px;
+  text-align: center;
+  font-size:36px;
+  font-weight:700;
+}
+.popup-content > p, .popup-content > h4 {
+  padding-left: 12px;
+}
+.popup-div-remove-drug > .popup-content {
+  min-height:300px;
+}
+.warning {
+  font-size:16px;
+  font-style: oblique;
+  color:rgba(128,128,128,1);
+}
+.form-buttons {
+
+}
+.form-buttons > button {
+  border-radius: 0px;
+  width:73px;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.form-buttons-two > button {
+  border-radius: 0px;
+  width:73px;
+  margin-left: 68px;
+  margin-right: 68px;
+  display:inline;
+  margin-bottom:24px;
+  margin-top:16px;
+}
+
+.times-list {
+}
+.times-list > li {
+  padding-left:20%;
+  padding-top:3px;
+}
+.times-list > li > .add-time-button {
+  padding-left: 1px;
+}
+.times-list > li > .add-time-button > p {
+  display:inline;
+}
+
+.add-time-button {
+  border-radius: 0px;
+  width:150px;
+  margin-top:8px;
+  padding-left:10px;
+  margin-bottom:10px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.remove-time-button {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.date-picker-div {
+  margin-left:auto;
+  margin-right:auto;
+  width:75%;
+}
+
+.time-picker {
+  display: table-cell;
+}
+
+.add-remove-div {
+  vertical-align:middle;
+  padding-left: 1em;
+}
+.add-remove-div > span {
+  cursor:pointer;
+}
+.add-remove-div > .glyphicon-plus {
+  color:#3A539B;
+  font-size: 20px;
+}
+.add-remove-div > .glyphicon-remove {
+  color:red;
+  font-size:20px;
+}
+
+.survey-history {
+}
+.survey-holder {
+  border: 1px solid lightgray;
+  margin-top: 8px;
+}
+.survey-summary {
+  box-sizing: padding-box;
+  height: 32px;
+  padding:8px;
+  padding-left:12px;
+  cursor:pointer;
+}
+.survey-summary:hover {
+  background-color: #EEE;
+}
+.survey-item {
+  margin-top: 16px;
+}
+.survey-question {
+  margin-top: 8px;
+}
+.survey-subquestion {
+  margin-left: 16px;
+}
+.survey-answer {
+  float: right;
+  font-weight: 600;
+}
+.survey-subanswer {
+  float: right;
+}

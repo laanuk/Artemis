@@ -1,0 +1,22 @@
+{
+  "name": "artemis",
+  "version": "1.0.0",
+  "description": "Artemis",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "1.x.x",
+    "express": "4.x.x",
+    "mongoose": "4.1.5",
+    "winston": "1.x.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "artemis"
+  },
+  "author": "Kunaal Naik",
+  "license": "ISC"
+}

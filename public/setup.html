@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="setup" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Artemis Spelling</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700|Cardo:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/pillpal.css">
+  <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css">
+
+  <link type="text/css" rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+
+  </header>
+
+  <main ng-controller="setupCtrl">
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input ng-model="game.name" placeholder="Enter Name" id="name" type="text" class="validate">
+          <label for="name">Name</label>
+        </div>
+      </div>
+
+      <!-- <div class="input-field col s12">
+        <select>
+          <option value="" disabled selected>Choose your typing option</option>
+          <option value="1">QWERTY</option>
+          <option value="2">A,S,D,F,V,N,J,K,L</option>
+          <option value="3">Q,W,E,R,V,N,U,I,O,P    </option>
+        </select>
+        <label>Select Typing Method</label>
+      </div> -->
+
+      <label>Browser Select</label>
+      <select ng-model="game.keys" class="browser-default">
+        <option value="" disabled selected>Choose your typing option</option>
+        <option value="1">QWERTY</option>
+        <option value="2">A,S,D,F,V,N,J,K,L</option>
+        <option value="3">Q,W,E,R,V,N,U,I,O,P</option>
+      </select>
+
+      <br>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input ng-model="game.rounds" placeholder="Enter Number of Rounds" id="times" type="text" class="validate">
+          <label for="name">Rounds</label>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="switch">
+        <label>
+          Help Off
+          <input ng-model="game.help" type="checkbox">
+          <span class="lever"></span>
+          Help On
+        </label>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea ng-model="game.words" id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Word List(Comma Separated)</label>
+        </div>
+      </div>
+
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Word List File</span>
+          <input ng-model="game.wordFile" id="fileInput" type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+
+      <br>
+      <button ng-click="start(game)" class="btn waves-effect waves-light">Start Game!
+        <i class="material-icons right">send</i>
+      </button>
+
+    </form>
+  </div>
+
+  </main>
+
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-resource/angular-resource.js"></script>
+<script src="/bower_components/angular-route/angular-route.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript" src="/bower_components/Materialize/dist/js/materialize.min.js"></script>
+
+<script src="/setup.js"></script>
+
+</body>
+</html>
