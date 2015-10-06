@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <form class="col s12">
+      <h2 class="center">Configure Game</h2>
+      <div class="row">
+        <div class="input-field col s6">
+          <label>Player Name</label>
+          <input ng-model="game.name" id="name" type="text" class="validate">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <select ng-model="game.keys" class="">
+            <option value="" disabled selected>Choose your typing option</option>
+            <option value="1">QWERTY</option>
+            <option value="2">A,S,D,F,V,N,J,K,L</option>
+            <option value="3">Q,W,E,R,V,N,U,I,O,P</option>
+          </select>
+          <label>Browser Select</label>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <label>Number of Rounds</label>
+          <input ng-model="game.rounds" id="times" type="number" min="1" max="5">
+        </div>
+      </div>
+
+      <br>
+
+      <div class="switch">
+        <label>
+          Help Off
+          <input ng-model="game.help" type="checkbox">
+          <span class="lever"></span>
+          Help On
+        </label>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <textarea ng-model="game.words" id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Word List(Comma Separated)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="file-field input-field col s6">
+          <div class="btn">
+            <span>Word List File</span>
+            <input ng-model="game.wordFile" id="fileInput" type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <button ng-click="start(game)" class="btn waves-effect waves-light">Start Game!
+        <i class="material-icons right">send</i>
+      </button>
+
+    </form>
+  </div>
+</div>

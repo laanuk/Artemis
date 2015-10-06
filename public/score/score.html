@@ -1,0 +1,32 @@
+<div style="margin-top: 50px"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s6 grid-example"><span class="flow-text">Score Report</span></div>
+    <a ng-click="save()" class="waves-effect waves-light btn" download="score.txt"><i class="material-icons left">cloud</i>Save</a>
+  </div>
+
+  <div class="row">
+     <div class="col s6 grid-example"><span class="flow-text">Name : {{name}}</span></div>
+     <div class="col s6 grid-example"><span class="flow-text">Percent : {{percent}}</span></div>
+   </div>
+
+  <table>
+    <thead>
+      <tr>
+          <th data-field="id">Number</th>
+          <th data-field="name">Word</th>
+          <th data-field="price">Mispelled Word</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="x in words">
+        <td>{{$index}}</td>
+        <td>{{x.correct}}</td>
+        <td>{{x.error}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

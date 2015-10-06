@@ -27,7 +27,7 @@ var logger = require('winston')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/app', function (req, res, next) {
-  var filePath = __dirname + '/public/setup.html'
+  var filePath = __dirname + '/public/app.html'
   res.sendFile(filePath)
 })
 
@@ -44,12 +44,6 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function (req, res) {
-  var filePath = __dirname + '/public/setup.html'
-  res.sendFile(filePath)
-})
-
-app.get('/game', function (req, res) {
-  console.log(req)
   var filePath = __dirname + '/public/app.html'
   res.sendFile(filePath)
 })

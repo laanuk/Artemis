@@ -6,23 +6,25 @@
   <title>Artemis Spelling</title>
 
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700|Cardo:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/pillpal.css">
+  <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css">
 
   <link type="text/css" rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="teal lighten-5">
+<body>
   <header>
     <!-- <ng-include src="'/navbar/navbar.html'" ng-controller="navbarCtrl"></ng-include> -->
   </header>
 
-  <main >
+  <main>
     <!-- Partials are automagically loaded here. -->
-    <div ng-view></div>
+    <div ng-view style="margin-top: 50px"></div>
   </main>
 
   <!-- <ng-include src="'/footer/footer.html'"></ng-include> -->
-
 
 <script src="/bower_components/angular/angular.js"></script>
 <script src="/bower_components/angular-resource/angular-resource.js"></script>
@@ -39,7 +41,7 @@
 <script src="/navbar/navbar.js"></script>
 <script src="/setup/setup.js"></script>
 <script src="/game/game.js"></script>
-<script src="/score/score.js"></script>
+
 
 </body>
 </html>
