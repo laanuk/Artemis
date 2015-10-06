@@ -36,7 +36,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   var wrong = false
 
   speak('Ready, spell')
-  speak($scope.currentWord)
+  speakWord($scope.currentWord)
 
   $('#wordField').on('keyup', function(e) {
     var value = $(this).val().slice(-1)
@@ -74,7 +74,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
             $scope.currentWord = $scope.words[0]
             $scope.currentLetter = $scope.currentWord[0]
             $scope.$apply()
-            speak($scope.currentWord)
+            speakWord($scope.currentWord)
           }
           document.getElementById("wordField").value=''
         } else {
@@ -89,7 +89,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
           $scope.currentLetter = $scope.currentWord[0]
           $scope.$apply()
           // $("#word")[0].play()
-          speak($scope.currentWord)
+          speakWord($scope.currentWord)
           document.getElementById("wordField").value=''
           wrong = false
         }
@@ -103,6 +103,13 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
     }
   })
 })
+
+function speakWord(text) {
+    speak(text)
+    for (var i = 0; i < text.length; i++) {
+      speak(text.charAt(i))
+    }
+}
 
 // Create a new utterance for the specified text and add it to
 // the queue.
