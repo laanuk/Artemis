@@ -3,19 +3,6 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var config = require('./config')
 
-mongoUri = 'mongodb://' + config.MONGO_USERNAME + ':' +
-    config.MONGO_PASSWORD + '@' + config.MONGO_HOST + '/' +
-    config.MONGO_DATABASE
-
-mongoose.connection.on('error', function (err) {
-  console.error('MongoDB error: %s', err)
-})
-mongoose.connect(mongoUri)
-
-mongoose.connection.on('error', function (err) {
-  console.error('MongoDB error: %s', err)
-})
-
 var connection = mongoose.connections[0]
 var router = express.Router()
 
