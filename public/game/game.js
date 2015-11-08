@@ -27,6 +27,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
 
   $scope.currentWord = $scope.words[0]
   $scope.currentLetter = $scope.currentWord[0]
+  showHelp($scope.currentLetter, $scope.help)
 
   var wordIndex = 0
   var letterIndex = 0
@@ -39,22 +40,20 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   speakWord($scope.currentWord)
 
   $('#wordField').on('keyup', function(e) {
-    var value = $(this).val().slice(-1)
+    var length = $(this).val().length
+    var value = parseValue($scope.currentLetter)
 
-    if (value == $scope.currentLetter) {
-      speak($scope.currentLetter)
+    if (value === 'wait') {
+      //do nothing
+    } else if (value === $scope.currentLetter) {
+      speak($scope.currentLetter, $scope.help)
+      // document.getElementById("wordField").value=''
 
       if (letterIndex + 1 == $scope.currentWord.length) {
         if (wordIndex + 1  == $scope.words.length) {
           roundIndex--
-          if (wrong) {
-            errors.push(document.getElementById("wordField").value)
-            correct.push($scope.currentWord)
-          }
           wrong = false
           if (roundIndex == 0) {
-            $("#end")[0].play()
-
             var total = $scope.words.length * $scope.rounds
             var percent = errors.length / total
             var errStr = errors.toString()
@@ -66,8 +65,11 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
             if (corrStr == '') {
               corrStr = 'None'
             }
-            console.log(corrStr)
-            $window.location.href = '/app#!/score/' + $scope.name + '/' + percent + '/' + corrStr + '/' + errStr
+            $("#end")[0].play()
+            console.log('corrStr: ' + corrStr)
+            setTimeout(function(){
+              $window.location.href = '/app#!/score/' + $scope.name + '/' + percent + '/' + corrStr + '/' + errStr
+            }, 3000);
           } else {
             wordIndex = 0
             letterIndex = 0
@@ -79,16 +81,12 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
           document.getElementById("wordField").value=''
         } else {
           //advance word
-          if (wrong) {
-            errors.push(document.getElementById("wordField").value)
-            correct.push($scope.currentWord)
-          }
           wordIndex++
           letterIndex = 0
           $scope.currentWord = $scope.words[wordIndex]
           $scope.currentLetter = $scope.currentWord[0]
           $scope.$apply()
-          // $("#word")[0].play()
+          //$("#word")[0].play()
           speakWord($scope.currentWord)
           document.getElementById("wordField").value=''
           wrong = false
@@ -100,9 +98,45 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
     } else {
       $("#buzz")[0].play()
       wrong = true
+      errors.push(document.getElementById("wordField").value)
+      correct.push($scope.currentWord)
+      document.getElementById("wordField").value= $(this).val().slice(0, length-1)
     }
+    showHelp($scope.currentLetter, $scope.help)
   })
 })
+
+var combos = {"a": "a", "b": "s", "c": "d", "d": "f", "e": "v", "f": "n", "g": "j", "h": "k", "i": "l",
+              "j": ";", "k": ";a", "l": "sl", "m": "dk", "n": "fj", "o": "vn", "p": "av", "q": "sv", "r": "dv", "s": "fv", "t": "nj",
+              "u": "nk", "v": "nl", "w": "n;", "x": "as", "y": "df", "z": "jk"};
+function parseValue(currentLetter) {
+
+  if (combos[currentLetter].length == 1) {
+    if($('#wordField').val().slice(-1) === combos[currentLetter]) {
+      document.getElementById("wordField").value = ''
+      return currentLetter
+    }
+  } else {
+    var current = document.getElementById("wordField").value
+    var first = current.charAt(current.length - 1)
+    var second = current.charAt(current.length - 2)
+    if (second === '') {
+      if (combos[currentLetter].includes(first)) {
+        return 'wait'
+      } else {
+        return ''
+      }
+    }
+    if (combos[currentLetter].includes(first) && combos[currentLetter].includes(second)) {
+      document.getElementById("wordField").value = ''
+      return currentLetter;
+    } else if (combos[currentLetter].includes(first) || combos[currentLetter].includes(second)) {
+      return 'wait'
+    } else {
+      return ''
+    }
+  }
+}
 
 function speakWord(text) {
     speak(text)
@@ -114,21 +148,17 @@ function speakWord(text) {
 // Create a new utterance for the specified text and add it to
 // the queue.
 function speak(text) {
-// Create a new instance of SpeechSynthesisUtterance.
-var msg = new SpeechSynthesisUtterance()
+  var u = new SpeechSynthesisUtterance();
+  u.text = text;
+  u.lang = 'Google US English';
+  u.rate = 1;
+  speechSynthesis.speak(u);
+}
 
-// Set the text.
-msg.text = text
-
-// Set the attributes.
-msg.volume = 1
-msg.rate = 1
-msg.pitch = 1
-
-// If a voice has been selected, find the voice and set the
-// utterance instance's voice attribute.
-msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == 'Google US English' })[0]
-
-// Queue this utterance.
-window.speechSynthesis.speak(msg)
+function showHelp(letter, helpFlag) {
+  if (helpFlag) {
+    document.getElementById("help").src = "img/" + letter + ".png"
+  } else {
+    document.getElementById("help").src = "NULL.img"
+  }
 }

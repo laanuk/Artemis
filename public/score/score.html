@@ -16,7 +16,6 @@
       <tr>
           <th data-field="id">Number</th>
           <th data-field="name">Word</th>
-          <th data-field="price">Mispelled Word</th>
       </tr>
     </thead>
 
@@ -24,7 +23,6 @@
       <tr ng-repeat="x in words">
         <td>{{$index+1}}</td>
         <td>{{x.correct}}</td>
-        <td>{{x.error}}</td>
       </tr>
     </tbody>
 
