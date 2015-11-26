@@ -1,7 +1,7 @@
 var app = angular.module('artemis.game', ['ngRoute'])
 
 app.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider.when('/game/:name/:keys/:rounds/:words/:help/', {
+  $routeProvider.when('/game/:name/:keys/:rounds/:words/', {
     templateUrl: 'game/game.html',
     controller: 'gameCtrl'
   })
@@ -14,7 +14,8 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   $scope.name = $routeParams.name
   $scope.keys = $routeParams.keys
   $scope.rounds = $routeParams.rounds
-  $scope.help = $routeParams.help
+  $scope.help = ($scope.keys == 'magicspell')
+  $scope.showWord = ($scope.keys == 'magicspell')
 
   if ($routeParams.words == 'null') {
     $scope.words = ['dog', 'cat', 'bird', 'duck', 'frog']
@@ -27,7 +28,6 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
 
   $scope.currentWord = $scope.words[0]
   $scope.currentLetter = $scope.currentWord[0]
-  showHelp($scope.currentLetter, $scope.help)
 
   var wordIndex = 0
   var letterIndex = 0
@@ -36,17 +36,26 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   var correct = []
   var wrong = false
 
+  showHelp($scope.currentLetter)
   speak('Ready, spell')
   speakWord($scope.currentWord)
 
+  $scope.toggleWord = function() {
+    $scope.showWord = !$scope.showWord
+  }
+
+  $scope.toggleImage = function() {
+    $scope.help = !$scope.help
+  }
+
   $('#wordField').on('keyup', function(e) {
     var length = $(this).val().length
-    var value = parseValue($scope.currentLetter)
+    var value = parseValue($scope.currentLetter, $scope.keys)
 
     if (value === 'wait') {
       //do nothing
     } else if (value === $scope.currentLetter) {
-      speak($scope.currentLetter, $scope.help)
+      speak($scope.currentLetter)
       // document.getElementById("wordField").value=''
 
       if (letterIndex + 1 == $scope.currentWord.length) {
@@ -102,38 +111,42 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
       correct.push($scope.currentWord)
       document.getElementById("wordField").value= $(this).val().slice(0, length-1)
     }
-    showHelp($scope.currentLetter, $scope.help)
+    showHelp($scope.currentLetter)
   })
 })
 
 var combos = {"a": "a", "b": "s", "c": "d", "d": "f", "e": "v", "f": "n", "g": "j", "h": "k", "i": "l",
               "j": ";", "k": ";a", "l": "sl", "m": "dk", "n": "fj", "o": "vn", "p": "av", "q": "sv", "r": "dv", "s": "fv", "t": "nj",
-              "u": "nk", "v": "nl", "w": "n;", "x": "as", "y": "df", "z": "jk"};
-function parseValue(currentLetter) {
+              "u": "nk", "v": "nl", "w": "n;", "x": "as", "y": "df", "z": "jk"}
 
-  if (combos[currentLetter].length == 1) {
-    if($('#wordField').val().slice(-1) === combos[currentLetter]) {
-      document.getElementById("wordField").value = ''
-      return currentLetter
-    }
+function parseValue(currentLetter, keys) {
+  if (keys == 'qwerty') {
+    return $('#wordField').val().slice(-1)
   } else {
-    var current = document.getElementById("wordField").value
-    var first = current.charAt(current.length - 1)
-    var second = current.charAt(current.length - 2)
-    if (second === '') {
-      if (combos[currentLetter].includes(first)) {
+    if (combos[currentLetter].length == 1) {
+      if($('#wordField').val().slice(-1) === combos[currentLetter]) {
+        document.getElementById("wordField").value = ''
+        return currentLetter
+      }
+    } else {
+      var current = document.getElementById("wordField").value
+      var first = current.charAt(current.length - 1)
+      var second = current.charAt(current.length - 2)
+      if (second === '') {
+        if (combos[currentLetter].includes(first)) {
+          return 'wait'
+        } else {
+          return ''
+        }
+      }
+      if (combos[currentLetter].includes(first) && combos[currentLetter].includes(second)) {
+        document.getElementById("wordField").value = ''
+        return currentLetter;
+      } else if (combos[currentLetter].includes(first) || combos[currentLetter].includes(second)) {
         return 'wait'
       } else {
         return ''
       }
-    }
-    if (combos[currentLetter].includes(first) && combos[currentLetter].includes(second)) {
-      document.getElementById("wordField").value = ''
-      return currentLetter;
-    } else if (combos[currentLetter].includes(first) || combos[currentLetter].includes(second)) {
-      return 'wait'
-    } else {
-      return ''
     }
   }
 }
@@ -155,10 +168,6 @@ function speak(text) {
   speechSynthesis.speak(u);
 }
 
-function showHelp(letter, helpFlag) {
-  if (helpFlag) {
-    document.getElementById("help").src = "img/" + letter + ".png"
-  } else {
-    document.getElementById("help").src = "NULL.img"
-  }
+function showHelp(letter) {
+  document.getElementById("help").src = "img/" + letter + ".png"
 }

@@ -10,8 +10,8 @@
 </audio>
 
 <div class="container">
-  <div id="area">
-    <h1>Current Word : {{currentWord}}</h1>
+  <div id="area" ng-show="showWord">
+    <h1>{{currentWord}}</h1>
   </div>
 
   <div class="row">
@@ -22,9 +22,13 @@
   </div>
 </div>
 
-<br>
-<br>
-<br>
-<div class="container">
-  <img class="materialboxed" id="help" src="img/a.png">
+<div class="row">
+   <div class="col s6 offset-s2" class="center">
+     <a ng-click="toggleWord()" class="waves-effect waves-light btn">Toggle Word</a>
+     <a ng-click="toggleImage()" class="waves-effect waves-light btn">Toggle Image</a>
+   </div>
+ </div>
+
+<div ng-show="help" class="container">
+  <img class="materialboxed" id="help" src="img/a.png" ng-show="help">
 </div>

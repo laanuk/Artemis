@@ -28,7 +28,8 @@ app.controller('setupCtrl', function ($scope, $window) {
   // $scope.keys = 'QWERTY'
   // $scope.rounds = 2
   // $scope.words = 'list, test, me, out'
-  // $scope.help = 'true'
+
+  $scope.keyOptions = ['qwerty', 'magicspell']
 
   $scope.wordFile = 'null'
 
@@ -43,7 +44,7 @@ app.controller('setupCtrl', function ($scope, $window) {
     }
 
     $window.location.href = '/app#!/game/' + game.name + "/" + game.keys + "/"
-                            + game.rounds + "/" + words + "/" + game.help
+                            + game.rounds + "/" + words
   }
 
   fileInput.addEventListener('change', function (e) {
@@ -56,6 +57,8 @@ app.controller('setupCtrl', function ($scope, $window) {
 
       reader.onload = function (e) {
         $scope.wordFile = reader.result
+        $scope.wordFile = $scope.wordFile.replace(/(?:\r\n|\r|\n)/g, ',');
+        console.log($scope.wordFile)
         $scope.$apply()
       }
 

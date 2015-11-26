@@ -11,13 +11,9 @@
 
       <div class="row">
         <div class="input-field col s6">
-          <select ng-model="game.keys" class="">
-            <option value="" disabled selected>Choose your typing option</option>
-            <option value="1">QWERTY</option>
-            <option value="2">A,S,D,F,V,N,J,K,L</option>
-            <option value="3">Q,W,E,R,V,N,U,I,O,P</option>
+          <select class="browser-default" ng-model="game.keys">
+              <option ng-repeat="value in keyOptions">{{value}}</option>
           </select>
-          <label>Browser Select</label>
         </div>
       </div>
 
@@ -28,17 +24,6 @@
           <label>Number of Rounds</label>
           <input ng-model="game.rounds" id="times" type="number" min="1" max="5">
         </div>
-      </div>
-
-      <br>
-
-      <div class="switch">
-        <label>
-          Help Off
-          <input ng-model="game.help" type="checkbox">
-          <span class="lever"></span>
-          Help On
-        </label>
       </div>
 
       <br>
