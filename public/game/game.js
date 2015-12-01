@@ -106,16 +106,21 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
       }
     } else {
       $("#buzz")[0].play()
-      wrong = true
-      errors.push(document.getElementById("wordField").value)
+      var error = document.getElementById("wordField").value
+      errors.push(error)
       correct.push($scope.currentWord)
+      wrong = true
       document.getElementById("wordField").value= $(this).val().slice(0, length-1)
     }
     showHelp($scope.currentLetter)
   })
 })
 
-var combos = {"a": "a", "b": "s", "c": "d", "d": "f", "e": "v", "f": "n", "g": "j", "h": "k", "i": "l",
+var combos = {"a": "a", "b": "s", "c": "d", "d": "f", "e": "v", "f": "n", "g": "u", "h": "i", "i": "o",
+              "j": "p", "k": "qp", "l": "wo", "m": "ei", "n": "ru", "o": "vn", "p": "qv", "q": "wv", "r": "ev", "s": "rv", "t": "nu",
+              "u": "ni", "v": "no", "w": "np", "x": "qw", "y": "er", "z": "ui"}
+
+var combos2 = {"a": "q", "b": "w", "c": "e", "d": "r", "e": "v", "f": "n", "g": "j", "h": "k", "i": "l",
               "j": ";", "k": ";a", "l": "sl", "m": "dk", "n": "fj", "o": "vn", "p": "av", "q": "sv", "r": "dv", "s": "fv", "t": "nj",
               "u": "nk", "v": "nl", "w": "n;", "x": "as", "y": "df", "z": "jk"}
 
@@ -124,7 +129,7 @@ function parseValue(currentLetter, keys) {
     return $('#wordField').val().slice(-1)
   } else {
     if (combos[currentLetter].length == 1) {
-      if($('#wordField').val().slice(-1) === combos[currentLetter]) {
+      if($('#wordField').val().slice(-1) === combos[currentLetter] || $('#wordField').val().slice(-1) === combos2[currentLetter]) {
         document.getElementById("wordField").value = ''
         return currentLetter
       }
@@ -133,16 +138,16 @@ function parseValue(currentLetter, keys) {
       var first = current.charAt(current.length - 1)
       var second = current.charAt(current.length - 2)
       if (second === '') {
-        if (combos[currentLetter].includes(first)) {
+        if (combos[currentLetter].indexOf(first) != -1 || combos2[currentLetter].indexOf(first) != -1) {
           return 'wait'
         } else {
           return ''
         }
       }
-      if (combos[currentLetter].includes(first) && combos[currentLetter].includes(second)) {
+      if ((combos[currentLetter].indexOf(first) != -1 && combos[currentLetter].indexOf(second) != -1) || combos2[currentLetter].indexOf(first) != -1 && combos2[currentLetter].indexOf(second) != -1) {
         document.getElementById("wordField").value = ''
         return currentLetter;
-      } else if (combos[currentLetter].includes(first) || combos[currentLetter].includes(second)) {
+      } else if ((combos[currentLetter].indexOf(first) != -1 || combos[currentLetter].indexOf(second) != -1) || combos2[currentLetter].indexOf(first) != -1 || combos2[currentLetter].indexOf(second) != -1) {
         return 'wait'
       } else {
         return ''
@@ -163,8 +168,8 @@ function speakWord(text) {
 function speak(text) {
   var u = new SpeechSynthesisUtterance();
   u.text = text;
-  u.lang = 'Google US English';
-  u.rate = 1;
+  u.lang = 'en-US';
+  u.rate = .75;
   speechSynthesis.speak(u);
 }
 
