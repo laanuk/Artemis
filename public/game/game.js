@@ -16,6 +16,22 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   $scope.rounds = $routeParams.rounds
   $scope.help = ($scope.keys == 'magicspell')
   $scope.showWord = ($scope.keys == 'magicspell')
+  $scope.currentText = ''
+
+  $scope.updateLabels = function() {
+    if ($scope.showWord) {
+      $scope.showWordLabel = 'Hide'
+    } else {
+      $scope.showWordLabel = 'Show'
+    }
+    if ($scope.help) {
+      $scope.showHelpLabel = 'Hide'
+    } else {
+      $scope.showHelpLabel = 'Show'
+    }
+  }
+
+  $scope.updateLabels()
 
   if ($routeParams.words == 'null') {
     $scope.words = ['dog', 'cat', 'bird', 'duck', 'frog']
@@ -42,10 +58,12 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
 
   $scope.toggleWord = function() {
     $scope.showWord = !$scope.showWord
+    $scope.updateLabels()
   }
 
   $scope.toggleImage = function() {
     $scope.help = !$scope.help
+    $scope.updateLabels()
   }
 
   $('#wordField').on('keyup', function(e) {
@@ -56,15 +74,21 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
       //do nothing
     } else if (value === $scope.currentLetter) {
       speak($scope.currentLetter)
-      // document.getElementById("wordField").value=''
+      $scope.currentText += $scope.currentLetter
+      $scope.$apply()
 
       if (letterIndex + 1 == $scope.currentWord.length) {
+        // a letter just ended, reset wrong
+        wrong = false
+
         if (wordIndex + 1  == $scope.words.length) {
+          // the round just ended
           roundIndex--
-          wrong = false
+
           if (roundIndex == 0) {
+            // game has ended
             var total = $scope.words.length * $scope.rounds
-            var percent = errors.length / total
+            var percent = correct.length / total
             var errStr = errors.toString()
             var corrStr = correct.toString()
 
@@ -80,10 +104,12 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
               $window.location.href = '/app#!/score/' + $scope.name + '/' + percent + '/' + corrStr + '/' + errStr
             }, 3000);
           } else {
+            // start the next round
             wordIndex = 0
             letterIndex = 0
             $scope.currentWord = $scope.words[0]
             $scope.currentLetter = $scope.currentWord[0]
+            $scope.currentText = ''
             $scope.$apply()
             speakWord($scope.currentWord)
           }
@@ -94,24 +120,32 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
           letterIndex = 0
           $scope.currentWord = $scope.words[wordIndex]
           $scope.currentLetter = $scope.currentWord[0]
+          $scope.currentText = ''
           $scope.$apply()
-          //$("#word")[0].play()
+          $("#word")[0].play()
           speakWord($scope.currentWord)
           document.getElementById("wordField").value=''
-          wrong = false
         }
       } else {
+        // continue to advance the letter
         letterIndex++
         $scope.currentLetter = $scope.currentWord[letterIndex]
       }
     } else {
+      // they pressed the wrong key
       $("#buzz")[0].play()
-      var error = document.getElementById("wordField").value
+      var error = $scope.currentText + document.getElementById("wordField").value
+      console.log('the error was:' + error)
+      if (!wrong) {
+        // if it already wasn't wrong before add it to the correctList
+        console.log('adding ' + $scope.currentWord)
+        correct.push($scope.currentWord)
+      }
       errors.push(error)
-      correct.push($scope.currentWord)
       wrong = true
       document.getElementById("wordField").value= $(this).val().slice(0, length-1)
     }
+    // show Help for the updated letter
     showHelp($scope.currentLetter)
   })
 })

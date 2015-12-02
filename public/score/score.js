@@ -13,16 +13,14 @@ app.controller('scoreCtrl', function ($scope, $routeParams) {
   $scope.name = $routeParams.name
   $scope.percent = (100 * (1 - $routeParams.percent)) + '%'
   $scope.words = []
-  $scope.report = 'Score Report\nName : ' + $scope.name + '\nPercent : ' + $scope.percent + '\nErrors : ' + $routeParams.errors
+  $scope.errors = $routeParams.errors
+  $scope.correct = $routeParams.words
+  $scope.report = 'Score Report\n\nName : ' + $scope.name + '\n\nErrors : ' + $scope.errors + '\n\nErrors were made on words : ' + $scope.correct
 
-  if ($routeParams.words == 'null') {
-    $scope.words = [{correct : 'None', error : 'Everything was correct'}]
-  } else {
-    var correct = $routeParams.words.split(',')
-    var errors = $routeParams.errors.split(',')
-    for (var i = 0; i < correct.length; i++) {
-      $scope.words[i] = {correct : correct[i], error : errors[i]}
-    }
+  if ($scope.correct == 'null') {
+    $scope.correct = 'None'
+    $scope.errors = 'None'
+    $scope.$apply()
   }
 
   $scope.save = function() {

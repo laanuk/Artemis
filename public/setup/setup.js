@@ -29,7 +29,7 @@ app.controller('setupCtrl', function ($scope, $window) {
   // $scope.rounds = 2
   // $scope.words = 'list, test, me, out'
 
-  $scope.keyOptions = ['qwerty', 'magicspell']
+  $scope.keyOptions = ['Normal Keyboard', 'Magicspell Keyboard']
 
   $scope.wordFile = 'null'
 
@@ -41,6 +41,12 @@ app.controller('setupCtrl', function ($scope, $window) {
       words = game.words
     } else {
       words = $scope.wordFile
+    }
+
+    if (game.keys === 'Normal Keyboard') {
+      game.keys = 'qwerty'
+    } else {
+      game.keys = 'magicspell'
     }
 
     $window.location.href = '/app#!/game/' + game.name + "/" + game.keys + "/"

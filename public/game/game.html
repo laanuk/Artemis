@@ -3,7 +3,7 @@
   <source src="sound/err.mp3" type="audio/mp3">
 </audio>
 <audio id="word">
-  <source src="sound/chaos-emerald.mp3" type="audio/mp3">
+  <source src="sound/03-power-up.mp3" type="audio/mp3">
 </audio>
 <audio id="end">
   <source src="sound/24-game-over.mp3" type="audio/mp3">
@@ -15,17 +15,20 @@
   </div>
 
   <div class="row">
+    <h1 class="blue-text text-darken-2">{{currentText}}<h1>
+  </div>
+
+  <div class="row">
     <div class="input-field col s12">
-      <input id="wordField" type="text" autofocus>
+      <input class="teal-text text-lighten-5" id="wordField" type="text" autofocus>
       <label for="text">Spell Here</label>
     </div>
   </div>
-</div>
 
 <div class="row">
    <div class="col s6 offset-s2" class="center">
-     <a ng-click="toggleWord()" class="waves-effect waves-light btn">Toggle Word</a>
-     <a ng-show="keys == 'magicspell'" ng-click="toggleImage()" class="waves-effect waves-light btn">Toggle Image</a>
+     <a ng-click="toggleWord()" class="waves-effect waves-light btn">{{showWordLabel}} Word</a>
+     <a ng-show="keys == 'magicspell'" ng-click="toggleImage()" class="waves-effect waves-light btn">{{showHelpLabel}} Image</a>
    </div>
  </div>
 
