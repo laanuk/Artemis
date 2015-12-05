@@ -7,7 +7,7 @@ app.config(['$routeProvider', function ($routeProvider) {
   })
 }])
 
-app.controller('gameCtrl', function ($scope, $routeParams, $window) {
+app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
   console.log('Game Config Params : ')
   console.log($routeParams)
 
@@ -15,7 +15,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   $scope.keys = $routeParams.keys
   $scope.rounds = $routeParams.rounds
   $scope.help = ($scope.keys == 'magicspell')
-  $scope.showWord = ($scope.keys == 'magicspell')
+  $scope.showWord = false
   $scope.currentText = ''
 
   $scope.updateLabels = function() {
@@ -31,7 +31,29 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
     }
   }
 
+  $scope.toggleWord = function() {
+    $scope.showWord = !$scope.showWord
+    $scope.updateLabels()
+    $timeout(function() {
+      console.log('in here')
+      $scope.showWord = !$scope.showWord
+      $scope.updateLabels()
+      // $scope.$apply()
+    }, 3000);
+  }
+
+  $scope.respeakWord = function() {
+    speakWord($scope.currentWord)
+  }
+
+  $scope.toggleImage = function() {
+    $scope.help = !$scope.help
+    $scope.updateLabels()
+  }
+
+  $scope.toggleWord()
   $scope.updateLabels()
+
 
   if ($routeParams.words == 'null') {
     $scope.words = ['dog', 'cat', 'bird', 'duck', 'frog']
@@ -55,16 +77,6 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window) {
   showHelp($scope.currentLetter)
   speak('Ready, spell')
   speakWord($scope.currentWord)
-
-  $scope.toggleWord = function() {
-    $scope.showWord = !$scope.showWord
-    $scope.updateLabels()
-  }
-
-  $scope.toggleImage = function() {
-    $scope.help = !$scope.help
-    $scope.updateLabels()
-  }
 
   $('#wordField').on('keyup', function(e) {
     var length = $(this).val().length
