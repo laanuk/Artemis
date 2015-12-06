@@ -15,8 +15,9 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
   $scope.keys = $routeParams.keys
   $scope.rounds = $routeParams.rounds
   $scope.help = ($scope.keys == 'magicspell')
-  $scope.showWord = false
+  $scope.showWord = true
   $scope.currentText = ''
+  $scope.started = false
 
   $scope.updateLabels = function() {
     if ($scope.showWord) {
@@ -39,7 +40,7 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
       $scope.showWord = !$scope.showWord
       $scope.updateLabels()
       // $scope.$apply()
-    }, 3000);
+    }, 3000)
   }
 
   $scope.respeakWord = function() {
@@ -51,16 +52,14 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
     $scope.updateLabels()
   }
 
-  $scope.toggleWord()
   $scope.updateLabels()
-
 
   if ($routeParams.words == 'null') {
     $scope.words = ['dog', 'cat', 'bird', 'duck', 'frog']
   } else {
     $scope.words = $routeParams.words.split(',')
     for (var i = 0; i < $scope.words.length; i++) {
-      $scope.words[i] = $scope.words[i].trim();
+      $scope.words[i] = $scope.words[i].trim()
     }
   }
 
@@ -85,6 +84,11 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
     if (value === 'wait') {
       //do nothing
     } else if (value === $scope.currentLetter) {
+      if (!$scope.started) {
+        $scope.started = true
+        $scope.showWord = false
+        $scope.updateLabels()
+      }
       speak($scope.currentLetter)
       $scope.currentText += $scope.currentLetter
       $scope.$apply()
@@ -112,9 +116,11 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
             }
             $("#end")[0].play()
             console.log('corrStr: ' + corrStr)
-            setTimeout(function(){
-              $window.location.href = '/app#!/score/' + $scope.name + '/' + percent + '/' + corrStr + '/' + errStr
-            }, 3000);
+            $timeout(function() {
+              setTimeout(function(){
+                $window.location.href = '/app#!/score/' + $scope.name + '/' + percent + '/' + corrStr + '/' + errStr
+              }, 1000);
+            }, 2000)
           } else {
             // start the next round
             wordIndex = 0
@@ -122,21 +128,25 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
             $scope.currentWord = $scope.words[0]
             $scope.currentLetter = $scope.currentWord[0]
             $scope.currentText = ''
-            $scope.$apply()
-            speakWord($scope.currentWord)
+            $timeout(function() {
+              $scope.$apply()
+              speakWord($scope.currentWord)
+            }, 2000)
           }
           document.getElementById("wordField").value=''
         } else {
           //advance word
+          $("#word")[0].play()
           wordIndex++
           letterIndex = 0
           $scope.currentWord = $scope.words[wordIndex]
           $scope.currentLetter = $scope.currentWord[0]
           $scope.currentText = ''
-          $scope.$apply()
-          $("#word")[0].play()
-          speakWord($scope.currentWord)
-          document.getElementById("wordField").value=''
+          $timeout(function() {
+            $scope.$apply()
+            speakWord($scope.currentWord)
+            document.getElementById("wordField").value=''
+          }, 2000)
         }
       } else {
         // continue to advance the letter

@@ -29,7 +29,7 @@ app.controller('setupCtrl', function ($scope, $window) {
   // $scope.rounds = 2
   // $scope.words = 'list, test, me, out'
 
-  $scope.keyOptions = ['Normal Keyboard', 'Magicspell Keyboard']
+  $scope.keyOptions = ['Normal Keyboard', 'MAGICspell Keyboard']
 
   $scope.wordFile = 'null'
 

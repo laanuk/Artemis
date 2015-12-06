@@ -34,16 +34,16 @@
       <br>
 
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s5">
           <textarea ng-model="game.words" id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Word List(Comma Separated)</label>
+          <label for="textarea1">Type word list (cat, dog, fish,...)</label>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="file-field input-field col s6">
+        <div class="col s1" style="margin-top: 40px">
+          <h5>OR</h5>
+        </div>
+        <div class="file-field input-field col s6" style="margin-top: 60px">
           <div class="btn">
-            <span>Word List File</span>
+            <span>Upload Word List</span>
             <input ng-model="game.wordFile" id="fileInput" type="file">
           </div>
           <div class="file-path-wrapper">
