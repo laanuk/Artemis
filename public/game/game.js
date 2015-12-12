@@ -129,8 +129,13 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
             $scope.currentLetter = $scope.currentWord[0]
             $scope.currentText = ''
             $timeout(function() {
+              $scope.started = false
+              $scope.showWord = true
+              $scope.updateLabels()
               $scope.$apply()
               speakWord($scope.currentWord)
+              // show Help for the updated letter
+              showHelp($scope.currentLetter)
             }, 2000)
           }
           document.getElementById("wordField").value=''
@@ -143,15 +148,22 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
           $scope.currentLetter = $scope.currentWord[0]
           $scope.currentText = ''
           $timeout(function() {
+            $scope.started = false
+            $scope.showWord = true
+            $scope.updateLabels()
             $scope.$apply()
             speakWord($scope.currentWord)
             document.getElementById("wordField").value=''
+            // show Help for the updated letter
+            showHelp($scope.currentLetter)
           }, 2000)
         }
       } else {
         // continue to advance the letter
         letterIndex++
         $scope.currentLetter = $scope.currentWord[letterIndex]
+        // show Help for the updated letter
+        showHelp($scope.currentLetter)
       }
     } else {
       // they pressed the wrong key
@@ -167,8 +179,6 @@ app.controller('gameCtrl', function ($scope, $routeParams, $window, $timeout) {
       wrong = true
       document.getElementById("wordField").value= $(this).val().slice(0, length-1)
     }
-    // show Help for the updated letter
-    showHelp($scope.currentLetter)
   })
 })
 

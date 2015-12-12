@@ -17,7 +17,7 @@ app.controller('scoreCtrl', function ($scope, $routeParams) {
   $scope.correct = $routeParams.words
   $scope.date = (new Date()).toDateString()
   document.getElementById('scoreLink').download = 'ScoreReport-' + $scope.name + '-' + $scope.date
-  $scope.report = 'Score Report\n\nDate : ' + $scope.date + '\n\nName : ' + $scope.name + '\n\nErrors were made on words : ' + $scope.correct
+  $scope.report = 'Score Report\r\n\r\nDate : ' + $scope.date + '\r\n\r\nName : ' + $scope.name + '\r\n\r\nErrors were made on words : ' + $scope.correct
 
   if ($scope.correct == 'null') {
     $scope.correct = 'None'
